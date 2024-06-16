@@ -7,7 +7,7 @@ WHERE NOT EXISTS (
       AND NOT EXISTS (
           SELECT c2.conference
           FROM authors a3 NATURAL JOIN conferences c2
-          WHERE c2.conference = c1.conference
+          WHERE a2.year = a3.year
             AND a3.name = a1.name
       )
 )
