@@ -15,6 +15,6 @@ WHERE c1.subarea = 'ML'
     FROM authors a3
     NATURAL JOIN conferences c3
     WHERE c3.area = 'ML'
-      AND c3.year >= 2020
+      AND a3.year >= 2020
   )
 ORDER BY a1.name;
