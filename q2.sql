@@ -1,5 +1,4 @@
 SELECT institution, name
-FROM authors
-NATURAL JOIN institutions
+JOIN institutions ON authors.institution = institutions.institution
 WHERE institutions.region = 'Africa'
 ORDER BY institution, name;
