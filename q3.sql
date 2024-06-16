@@ -1,7 +1,5 @@
-SELECT DISTINCT name, institution
-FROM authors
-WHERE institution IN (SELECT institution FROM institutions WHERE country = 'il')
-  AND conference LIKE 'sig%'
-GROUP BY name, institution
-HAVING COUNT(*) >= 2
-ORDER BY institution,name;
+SELECT DISTINCT a.institution, a.name
+FROM authors a
+NATURAL JOIN institutions i
+WHERE i.country = 'il' AND a.totalcount >= 2 AND conference LIKE 'sig%'
+ORDER BY a.institution, a.name;
