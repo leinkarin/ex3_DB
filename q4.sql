@@ -1,4 +1,4 @@
-SELECT name, year
+SELECT DISTINCT name, year
 FROM authors a1 NATURAL JOIN conferences c1
 WHERE institution = 'Hebrew University of Jerusalem'
   AND c1.subarea = 'ai'
