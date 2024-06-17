@@ -1,14 +1,11 @@
-WITH institution_counts AS (
-  SELECT institution, country, SUM(totalcount) AS countryCount
-  FROM authors
-  JOIN institutions ON authors.institution = institutions.institution
-  GROUP BY institution, country
+WITH publish_count AS(
+    SELECT institution, SUM(totalcount) as countryCount, country
+    FROM authors NATURAL JOIN institutions
+    GROUP BY institution, region, country
 )
-SELECT country, institution, countryCount
-FROM (
-  SELECT country, institution, countryCount,
-         ROW_NUMBER() OVER (PARTITION BY country ORDER BY countryCount DESC) AS rn
-  FROM institution_counts
-) ranked_institutions
-WHERE rn = 1
-ORDER BY country, institution;
+SELECT *
+FROM publish_count p1
+WHERE countryCount= (SELECT MAX(countryCount)
+                     FROM publish_count p2
+                     WHERE p1.country= p2.country)
+ORDER BY country,institution;
