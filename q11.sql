@@ -1,3 +1,6 @@
+WITH young_conferences
+
+
 SELECT DISTINCT name
 FROM authors
 JOIN conferences ON authors.conference = conferences.conference
