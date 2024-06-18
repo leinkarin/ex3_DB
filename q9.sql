@@ -1,5 +1,5 @@
 WITH publish_count AS(
-    SELECT institution, SUM(totalcount) as countryCount, country
+    SELECT country, institution, SUM(totalcount) as countryCount
     FROM authors NATURAL JOIN institutions
     GROUP BY institution, region, country
 )
