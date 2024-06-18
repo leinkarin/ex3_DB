@@ -1,10 +1,19 @@
-WITH young_conferences
+WITH young_conferences AS(
+    SELECT conference, COUNT(DISTINCT years) as years
+    FROM authors
+    GROUP BY conference
+    HAVING COUNT(DISTINCT year) <= 15
+)
 
 
-SELECT DISTINCT name
-FROM authors
-JOIN conferences ON authors.conference = conferences.conference
-WHERE conferences.years <= 15
-GROUP BY name
-HAVING COUNT(DISTINCT conferences.conference) = COUNT(DISTINCT conferences.years)
-ORDER BY name;
+SELECT DISTINCT a1.name
+FROM authors a1
+WHERE NOT EXISTS(
+                SELECT a2.name
+                FROM authors a2
+                WHERE a1.name = a2.name AND a2.conference NOT IN (
+                                                                    SELECT conference FROM young_conferences)
+)
+ORDER BY a1.name;
+
+
