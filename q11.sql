@@ -1,5 +1,5 @@
 WITH young_conferences AS(
-    SELECT conference, COUNT(DISTINCT years) as years
+    SELECT conference, COUNT(DISTINCT year) as years
     FROM authors
     GROUP BY conference
     HAVING COUNT(DISTINCT year) <= 15
